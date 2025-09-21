@@ -1,0 +1,61 @@
+const chat = document.getElementById("chat");
+const input = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
+const searchForm = document.getElementById("searchForm");
+
+let memory = {};
+let mood = "happy";
+
+const greetings = ["Hey!", "Hi there!", "Hello!"];
+const smallTalk = ["Tell me more.", "Interesting!", "I see, go on...", "Wow!", "That's cool!"];
+
+function novaReply(userInput) {
+    userInput = userInput.toLowerCase();
+
+    if (!memory.name) {
+        memory.name = userInput;
+        return `Nice to meet you, ${memory.name}! What's your favorite number?`;
+    } else if (!memory.favorite_number) {
+        let num = parseInt(userInput);
+        if (!isNaN(num)) {
+            memory.favorite_number = num;
+            return `Cool! Your favorite number is ${memory.favorite_number}.`;
+        } else {
+            return "Please give me a number!";
+        }
+    }
+
+    try {
+        return "Result: " + eval(userInput);
+    } catch {
+        return smallTalk[Math.floor(Math.random()*smallTalk.length)];
+    }
+}
+
+function appendMessage(sender, text) {
+    const msg = document.createElement("div");
+    msg.className = `message ${sender}`;
+    msg.textContent = text;
+    chat.appendChild(msg);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+sendBtn.onclick = () => {
+    const userText = input.value;
+    if (!userText) return;
+    appendMessage("user", userText);
+    const reply = novaReply(userText);
+    appendMessage("bot", reply);
+    input.value = "";
+    mood = ["happy","sad","neutral"][Math.floor(Math.random()*3)];
+};
+
+input.addEventListener("keypress", function(e) {
+    if (e.key === "Enter") sendBtn.click();
+});
+
+searchForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    let query = document.getElementById("searchInput").value;
+    window.open("https://www.google.com/search?q=" + encodeURIComponent(query), "_blank");
+});
