@@ -1,0 +1,9 @@
+body { font-family: Arial; background: #f0f0f0; padding: 20px; }
+#chat { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll; background: white; }
+#userInput { width: 70%; padding: 5px; }
+#sendBtn { padding: 5px 10px; }
+#searchInput { width: 70%; padding: 5px; margin-top: 10px; }
+#searchForm button { padding: 5px 10px; }
+.message { margin: 5px 0; }
+.user { color: blue; }
+.bot { color: green; }
