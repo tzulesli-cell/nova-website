@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nova Bot Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Nova Bot Calculator</h1>
+    
+    <div id="chat"></div>
+    <input type="text" id="userInput" placeholder="Type here...">
+    <button id="sendBtn">Send</button>
+
+    <form id="searchForm">
+        <input type="text" id="searchInput" placeholder="Search Google...">
+        <button type="submit">Search</button>
+    </form>
+
+    <script src="script.js"></script>
+</body>
+</html>
