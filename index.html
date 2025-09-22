@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nova AI Chatbot</title>
+  <style>
+    body { font-family: Arial; background: #121212; color: #f0f0f0; text-align: center; }
+    header img { width: 100px; margin-top: 20px; }
+    #chat { border: 1px solid #333; background: #1e1e1e; width: 400px; height: 400px; margin: 20px auto; overflow-y: auto; padding: 10px; border-radius: 10px; text-align: left; }
+    input, button { padding: 8px; border-radius: 5px; border: none; margin-top: 5px; }
+    input { width: 300px; background: #2a2a2a; color: white; }
+    button { background: #4caf50; color: white; cursor: pointer; }
+    button:hover { background: #45a049; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://i.pinimg.com/originals/5c/e1/30/5ce1309b98c812e6a539c116043e2faa.gif" alt="Nova Logo">
+    <h2>Nova AI Chatbot</h2>
+  </header>
+
+  <div id="chat"></div>
+  <input id="input" placeholder="Type a message..." onkeydown="if(event.key==='Enter'){sendMessage()}">
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    const backendURL = "https://nova-replit-project.repl.co/chat"; // Replace with your backend URL
+
+    async function sendMessage() {
+      let input = document.getElementById("input");
+      let chat = document.getElementById("chat");
+      let userText = input.value.trim();
+      if (!userText) return;
+
+      chat.innerHTML += "<p><b>You:</b> " + userText + "</p>";
+      input.value = "";
+
+      try {
+        const response = await fetch(backendURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: userText })
+        });
+
+        const data = await response.json();
+        chat.innerHTML += "<p><b>Nova:</b> " + data.reply + "</p>";
+        chat.scrollTop = chat.scrollHeight;
+      } catch (err) {
+        chat.innerHTML += "<p><b>Nova:</b> Error connecting to backend.</p>";
+      }
+    }
+  </script>
+</body>
+</html>
